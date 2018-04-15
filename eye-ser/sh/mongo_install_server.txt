@@ -1,0 +1,2 @@
+mongod --logpath D:\guahao\db\logs\db.log --logappend --dbpath D:\guahao\db\store --directoryperdb --serviceName guahao-db --install
+D:\mongodata\db

@@ -1,0 +1,66 @@
+
+<html>
+  <head>
+      <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+      <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
+      <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+  </head>
+
+  <body>
+      <div id="app">
+          <p>{{count}}
+            <button @click="inc">+</button>
+            <button @click="dec">-</button>
+            <button @click="func1">func1</button>
+          </p>
+      </div>
+  </body>
+
+<script>
+
+const store = new Vuex.Store({
+  state: {
+    count: 0,
+    x : 'aaaa'
+  },
+  mutations: {
+    inc: state => state.count++,
+    dec: state => state.count--,
+    func1 ({count,x},p1) {
+      // commit1('inc')
+      // console.log(commit1.getter)
+      // console.log(p1)
+      // commit('inc')
+      // commit1.count++
+      console.log(count)
+      console.log(x)
+      // count++
+    }
+  }
+})
+
+const app = new Vue({
+  el: '#app',
+  computed: {
+    count () {
+        return store.state.count
+    }
+  },
+  methods: {
+    inc () {
+      store.commit('inc')
+    },
+    dec () {
+        store.commit('dec')
+    },
+    func1() {
+      store.commit('func1','x11')
+      console.log(1111)
+    }
+  }
+})
+</script>
+
+
+
+</html>

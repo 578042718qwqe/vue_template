@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>   websocket 网页测试例子1</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/socket.io.js"></script>
+    <script>
+      var websocket = null
+      var EVT_MSG = ''
+      function func1() {
+        var href = window.location.href
+        var idx1 = href.indexOf('//')
+        var idx2 = href.lastIndexOf('/')
+        var href2 = href.substring(idx1+2,idx2)
+        href2 = href2.replace('6886','6887')
+        EVT_MSG = document.getElementById('msg').value
+        // alert(href2)
+
+        // if(!websocket) {
+          // websocket = io('ws://' + href2);
+          // websocket = io('ws://192.168.2.20:88');
+          var u1 = document.getElementById('addr').value;
+          console.log(u1)
+          websocket = io(u1)
+          console.log('url:','ws://' + href2)
+          websocket.on(EVT_MSG, function (data) {
+              console.log(data);
+              // websocket.emit('my other event', { my: 'data' });
+              document.getElementById('result').value = data
+          });
+        // }
+
+        document.getElementById('result').value = 'ok'
+        
+      }
+      function func2() {
+        var obj = {
+          "guid": new Date().getTime(), 
+          "access_token": "7129c1c2-72a8-4fbc-94fb-b0769a04e197",
+          "server_name": "his010",
+          "return_flag": 1,
+          "message":"aaaaaaadafas",
+          "data":null
+        }
+        websocket.emit(EVT_MSG,JSON.stringify(obj))
+      }
+    </script>
+  </head>
+  <body >
+    
+    <div>
+      <input id="addr" type="text" value="ws://192.168.2.20:88" />
+      <input id="msg" type="text" value="WX_MESSAGE" />
+      <button onclick="func1()" >初始化</button>
+      <button onclick="func2()" >his010</button>
+    </div>
+    <div>
+      <textarea id="result" cols="100" rows="20"></textarea>
+    </div>
+    
+    <h1></h1>
+    <p>浏览器需要支持websocket :) ,或者说只要浏览器不是IE6 IE7 IE8即可 :)</p>
+    <p>chrome内核的浏览器可以按F12调试WS请求</p>
+  </body>
+</html>
